@@ -1,0 +1,6 @@
+pymongo
+ttkbootstrap
+python-dotenv
+pygubu
+tkcalendar
+bcrypt
