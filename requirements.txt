@@ -4,3 +4,4 @@ python-dotenv
 pygubu
 tkcalendar
 bcrypt
+opencv-python
