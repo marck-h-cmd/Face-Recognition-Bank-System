@@ -3,38 +3,38 @@ from db.database import Database
 
 
 class Employee:
-    collection = Database.get_db()["products"]
+    collection = Database.get_db()["employees"]
 
-    def __init__(self, code, name,category, price, stock):
-        self.code = code
+    def __init__(self, emplcode, name,lastname,city,address, username, password):
+        self.emplcode = emplcode
         self.name = name
-        self.category = category
-        self.price = price
-        self.stock = stock
+        self.lastname = lastname
+        self.city = city
+        self.address = address
+        self.username= username
+        self.password=password
 
     @staticmethod
-    def insert(code, name, category,price, stock):
-        return Product.collection.insert_one({
-            'code': code,
+    def insert(code, name, lastname,city,address, username, password):
+        return Employee.collection.insert_one({
+            'emplcode': code,
             'name': name,
-            'category':category,
-            'price': price,
-            'stock': stock
+            'lastname':lastname,
+            'city': city,
+            'address': address,
+            'username':username,
+            'password':password
         })
 
     @classmethod
     def find_by_code(cls, code):
-        product_data = cls.collection.find_one({'code': code})
-        return cls(product_data['code'], product_data['name'],  product_data['category'],product_data['price'], product_data['stock']) if product_data else None
+        empl_data = cls.collection.find_one({'code': code})
+        return cls(empl_data['emplcode'], empl_data['name'],  empl_data['lastname'],empl_data['city'], empl_data['address'],empl_data['username',empl_data['password']]) if empl_data else None
 
-    @classmethod
-    def find_by_name(cls, name):
-        product_data = cls.collection.find_one({'name': name})
-        return cls(product_data['code'], product_data['name'],  product_data['category'],product_data['price'], product_data['stock']) if product_data else None
     
     @classmethod
     def update(cls, code, **kwargs):
-        update_data = {key: value for key, value in kwargs.items() if key in ['name','category','price','stock'] }
+        update_data = {key: value for key, value in kwargs.items() if key in ['emplcode','name','lastname','city', 'address', 'username','password'] }
         return cls.collection.update_one({'code': code}, {'$set': update_data})
 
 
@@ -44,20 +44,7 @@ class Employee:
   
     @classmethod
     def list_all(cls):
-        products = []
-        for product_data in cls.collection.find():
-            products.append(cls(product_data['code'], product_data['name'],  product_data['category'],product_data['price'], product_data['stock']))
-        return products
-    @classmethod
-    def list_by_category(cls,category):
-        products = []
-        for product_data in cls.collection.find({'category': category}):
-            products.append(cls(product_data['code'], product_data['name'],  product_data['category'],product_data['price'], product_data['stock']))
-        return products
-
-    def decrease_stock(self, amount):
-        if self.stock >= amount:
-            self.stock -= amount
-            return self.collection.update_one({'code': self.code}, {'$set': {'stock': self.stock}})
-        else:
-            raise ValueError("Insufficient stock")
+        employees = []
+        for empl_data in cls.collection.find():
+            employees.append(cls(empl_data['emplcode'], empl_data['name'],  empl_data['lastname'],empl_data['city'], empl_data['address'],empl_data['username',empl_data['password']]))
+        return employees
