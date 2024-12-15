@@ -5,3 +5,8 @@ pygubu
 tkcalendar
 bcrypt
 opencv-python
+face_recognition
+opencv-python-headless
+cmake
+dlib
+PIL

@@ -19,3 +19,9 @@ def decode_hash_function(password,hash):
 #geneerar codigo de 6 digitos para venta   
 def generate_random_code():
     return "{:06d}".format(random.randint(0, 999999))
+
+def generate_baccount_code():
+    return "{:010d}".format(random.randint(0, 999999)) 
+
+def generate_customer_code():
+    return "{:04d}".format(random.randint(0, 999999)) 

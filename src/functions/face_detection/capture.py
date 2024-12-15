@@ -1,7 +1,7 @@
 import face_recognition
 import cv2
 import numpy as np
-from pymongo import MongoClient
+
 
     #pa guardar el rostro en la DB
 def registrar_rostro(usuario_id):
@@ -15,7 +15,7 @@ def registrar_rostro(usuario_id):
     # Detectar rostros en la imagen
     face_locations = face_recognition.face_locations(rgb_frame)                  #coniverte la imagen a t,b,r y l pxles
     face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)  #codifica el rostro unico
-    
+    #face_recognition
     # Si se detecta un rostro
     if face_encodings:
         # Guardamos el primer rostro checkeado
