@@ -5,9 +5,9 @@ from db.database import Database
 class BAccount:
     collection = Database.get_db()["bank_accounts"]
 
-    def __init__(self, acctcode, emplcode, clcode,  created_at, amount,state, mov_cont,acc_pass):
+    def __init__(self, acctcode,face_id, clcode,  created_at, amount,state, mov_cont,acc_pass):
         self.acctcode = acctcode
-        self.emplcode = emplcode
+        self.face_id=face_id
         self.clcode = clcode
         self.created_at = created_at
         self.amount = amount
@@ -17,12 +17,12 @@ class BAccount:
         
 
     @staticmethod
-    def insert( acctcode, emplcode, clcode,created_at,amount, state, mov_cont,acc_pass):
+    def insert( acctcode, face_id, clcode,created_at,amount, state, mov_cont,acc_pass):
 
         return BAccount.collection.insert_one({
            
             'acctcode': acctcode,
-            'emplcode': emplcode,
+            'face_id':face_id,
             'clcode': clcode,
             'created_at': created_at,
             'amount': amount,
@@ -35,8 +35,20 @@ class BAccount:
       
        pass
 
-    def display_cards(self):
+    def display_cards(self,acctcode):
    
         return [card.card_number for card in self.cards]
+    
+    def close_account(acctcode):
+    
+        return BAccount.collection.update_one(
+            {'acctcode': acctcode},
+            {'$set': {'state': 'inactive'}}
+        )
+
+    @staticmethod
+    def delete_account(acctcode):
+        BAccount.card_collection.delete_many({'linked_acctcode': acctcode})  
+        return BAccount.collection.delete_one({'acctcode': acctcode})
 
         

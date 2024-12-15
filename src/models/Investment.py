@@ -1,3 +1,4 @@
+'''
 class Investment:
     @staticmethod
     def get_collection():
@@ -46,3 +47,5 @@ class Investment:
                 investment_data['status']
             ))
         return investments
+        
+'''

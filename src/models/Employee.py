@@ -39,7 +39,7 @@ class Employee:
 
 
     def delete(self):
-        return self.collection.delete_one({'code': self.code})
+        return self.collection.delete_one({'code': self.emplcode})
 
   
     @classmethod
