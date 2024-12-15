@@ -6,6 +6,10 @@ from gui.menu.main_menuui import MenuUI
 from models.User import User
 from tkinter import messagebox
 from functions.utils import *
+
+PROJECT_PATH = pathlib.Path(__file__).parent
+PROJECT_UI = PROJECT_PATH / "login.ui"
+RESOURCE_PATHS = [PROJECT_PATH]
 class loginUI:
     def __init__(self, master=None):
         # build ui
