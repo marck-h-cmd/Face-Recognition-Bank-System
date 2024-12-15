@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
+import pygubu
+import pathlib
 from gui.sign_up.sign_upui import sign_upUI as RegisterUI
 from gui.menu.main_menuui import MenuUI
 from models.User import User
