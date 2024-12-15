@@ -1,0 +1,356 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">BankCARD</setting>
+      <setting id="description">EXCELENTE</setting>
+      <setting id="module_name">bank_card</setting>
+      <setting id="template">codescript</setting>
+      <setting id="main_widget">toplevel1</setting>
+      <setting id="main_classname">Bank_card</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="background">#ffffff</property>
+    <property name="cursor">arrow</property>
+    <property name="geometry">780x650</property>
+    <property name="height">700</property>
+    <property name="highlightbackground">#64ddd1</property>
+    <property name="iconphoto">user_color.png</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">pruducto_registro</property>
+    <property name="width">800</property>
+    <containerlayout manager="pack">
+      <property name="propagate">false</property>
+    </containerlayout>
+    <child>
+      <object class="tk.Canvas" id="canvas3">
+        <property name="background">#f9f9f9</property>
+        <property name="relief">raised</property>
+        <property name="selectbackground">#c0c0c0</property>
+        <property name="state">normal</property>
+        <layout manager="place">
+          <property name="height">200</property>
+          <property name="relheight">0.06</property>
+          <property name="relwidth">0.13</property>
+          <property name="relx">0.0</property>
+          <property name="rely">0.0</property>
+          <property name="width">500</property>
+          <property name="x">100</property>
+          <property name="y">300</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="txt_code" named="True">
+        <property name="style">info</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="height">30</property>
+          <property name="width">150</property>
+          <property name="x">200</property>
+          <property name="y">110</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="txt_name" named="True">
+        <property name="style">info</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="height">30</property>
+          <property name="relx">0.06</property>
+          <property name="width">150</property>
+          <property name="x">482</property>
+          <property name="y">130</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="txt_numtarje" named="True">
+        <property name="style">info</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="height">30</property>
+          <property name="width">200</property>
+          <property name="x">150</property>
+          <property name="y">350</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Combobox" id="cbx_category" named="True">
+        <property name="style">info</property>
+        <property name="validate">none</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="height">30</property>
+          <property name="width">150</property>
+          <property name="x">200</property>
+          <property name="y">150</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="lbl_code" named="True">
+        <property name="background">#ffffff</property>
+        <property name="compound">left</property>
+        <property name="cursor">based_arrow_down</property>
+        <property name="justify">left</property>
+        <property name="padding">5</property>
+        <property name="text" translatable="yes">Codigo Cliente:</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="relx">0.0</property>
+          <property name="rely">0.0</property>
+          <property name="x">50</property>
+          <property name="y">110</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="lbl_name" named="True">
+        <property name="background">#ffffff</property>
+        <property name="compound">bottom</property>
+        <property name="padding">5</property>
+        <property name="relief">flat</property>
+        <property name="state">normal</property>
+        <property name="text" translatable="yes">Nombre</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="x">475</property>
+          <property name="y">100</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="lbl_category" named="True">
+        <property name="background">#ffffff</property>
+        <property name="compound">top</property>
+        <property name="justify">left</property>
+        <property name="padding">5</property>
+        <property name="state">normal</property>
+        <property name="takefocus">false</property>
+        <property name="text" translatable="yes">Apellidos</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="rely">0.12</property>
+          <property name="x">475</property>
+          <property name="y">90</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="lbl_stock" named="True">
+        <property name="background">#ffffff</property>
+        <property name="compound">bottom</property>
+        <property name="padding">5</property>
+        <property name="takefocus">false</property>
+        <property name="text" translatable="yes">Tipo Tarjeta
+</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="x">50</property>
+          <property name="y">150</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="lbl_nrocard" named="True">
+        <property name="background">#f9f9f9</property>
+        <property name="compound">top</property>
+        <property name="cursor">arrow</property>
+        <property name="padding">5</property>
+        <property name="text" translatable="yes">Numero Tarjeta:</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="relx">0.0</property>
+          <property name="x">130</property>
+          <property name="y">310</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="label8">
+        <property name="background">#ffffff</property>
+        <property name="compound">top</property>
+        <property name="font">TkDefaultFont</property>
+        <property name="state">normal</property>
+        <property name="takefocus">true</property>
+        <property name="text" translatable="yes">Solicitar Tarjeta
+</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="relx">0.0</property>
+          <property name="rely">0.04</property>
+          <property name="x">200</property>
+          <property name="y">40</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="label1">
+        <property name="background">#ffffff</property>
+        <property name="compound">left</property>
+        <property name="font">TkTextFont</property>
+        <property name="justify">left</property>
+        <property name="relief">flat</property>
+        <property name="state">normal</property>
+        <property name="text" translatable="yes">Informacion del cliente
+</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="relx">0.04</property>
+          <property name="rely">0.04</property>
+          <property name="x">500</property>
+          <property name="y">40</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="txt_surname" named="True">
+        <property name="style">info</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="height">30</property>
+          <property name="relx">0.06</property>
+          <property name="rely">0.11</property>
+          <property name="width">150</property>
+          <property name="x">482</property>
+          <property name="y">130</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="label2">
+        <property name="background">#ffffff</property>
+        <property name="compound">top</property>
+        <property name="font">TkDefaultFont</property>
+        <property name="state">normal</property>
+        <property name="takefocus">true</property>
+        <property name="text" translatable="yes">Informacion Tarjeta
+</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="relx">0.0</property>
+          <property name="rely">0.04</property>
+          <property name="x">100</property>
+          <property name="y">240</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="button1">
+        <property name="cursor">arrow</property>
+        <property name="default">normal</property>
+        <property name="text" translatable="yes">SOLICITAR TARJETA</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="relx">0.25</property>
+          <property name="rely">0.32</property>
+          <property name="x">0</property>
+          <property name="y">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="button3">
+        <property name="cursor">arrow</property>
+        <property name="default">normal</property>
+        <property name="text" translatable="yes">Consultar</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="relx">0.47</property>
+          <property name="rely">0.17</property>
+          <property name="x">0</property>
+          <property name="y">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="txt" named="True">
+        <property name="background">#f9f9f9</property>
+        <property name="compound">top</property>
+        <property name="cursor">arrow</property>
+        <property name="padding">5</property>
+        <property name="text" translatable="yes">Fecha Expiracion:</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="rely">0.13</property>
+          <property name="x">130</property>
+          <property name="y">310</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="txt_exp" named="True">
+        <property name="style">info</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="height">30</property>
+          <property name="rely">0.13</property>
+          <property name="width">150</property>
+          <property name="x">150</property>
+          <property name="y">350</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="label4" named="True">
+        <property name="background">#f9f9f9</property>
+        <property name="compound">top</property>
+        <property name="cursor">arrow</property>
+        <property name="padding">5</property>
+        <property name="text" translatable="yes">Fecha Expiracion:</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="relwidth">0.0</property>
+          <property name="rely">0.0</property>
+          <property name="x">130</property>
+          <property name="y">310</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="txt_tipocard" named="True">
+        <property name="style">info</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="height">30</property>
+          <property name="relx">0.38</property>
+          <property name="rely">0.08</property>
+          <property name="width">150</property>
+          <property name="x">150</property>
+          <property name="y">350</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="txt_tipotarj" named="True">
+        <property name="background">#f9f9f9</property>
+        <property name="compound">top</property>
+        <property name="cursor">arrow</property>
+        <property name="padding">5</property>
+        <property name="text" translatable="yes">Tipo Tarjeta:</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="relx">0.41</property>
+          <property name="rely">0.08</property>
+          <property name="x">130</property>
+          <property name="y">310</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>
