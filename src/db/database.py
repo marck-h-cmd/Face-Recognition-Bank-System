@@ -11,7 +11,7 @@ class Database:
     def initialize(cls):
         if cls._client is None:
             cls._client = MongoClient("mongodb://localhost:27017/")  #server connection
-            cls._db = cls._client["db_bank"]   #database name
+            cls._db = cls._client["face_recognition_db"]   #database name
             print("Database initialized.")
      
     @classmethod
