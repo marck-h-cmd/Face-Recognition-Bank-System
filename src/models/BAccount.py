@@ -1,6 +1,8 @@
 
 from db.database import Database
 from functions.utils import decode_hash_function,encode_hash_function
+from models import Transaction
+import datetime
 
 class BAccount:
     Database.initialize()
@@ -61,5 +63,77 @@ class BAccount:
     def delete_account(acctcode):
         BAccount.card_collection.delete_many({'linked_acctcode': acctcode})  
         return BAccount.collection.delete_one({'acctcode': acctcode})
+    
+    
+    def retirar_dinero(self, cantidad):
+        #Debe ser implementada en la gui estas verificaciones
+        #if cantidad <= 0:
+        #    raise ValueError("La cantidad a retirar debe ser mayor a 0")
+        #if cantidad > self.amount:
+        #    raise ValueError("Saldo insuficiente")
+        nuevo_saldo = self.amount - cantidad
+        BAccount.collection.update_one({'acctcode': self.acctcode}, {'$set': {'amount': nuevo_saldo}})
+        # Registro de la transacción
+        Transaction.insert(
+            transaction_id=f"TR-{self.mov_cont + 1}", 
+            from_account=self.acctcode, 
+            to_account=None, 
+            amount=cantidad, 
+            date=datetime.now(), 
+            trans_type='retiro'
+        )
+        return nuevo_saldo
+
+    def transferir_dinero(self, destinatario_acctcode, cantidad):
+        #Debe ser implementada en la gui estas verificaciones
+        #if cantidad <= 0:
+        #    raise ValueError("La cantidad a transferir debe ser mayor a 0")
+        #if cantidad > self.amount:
+        #    raise ValueError("Saldo insuficiente")
+        nuevo_saldo_origen = self.amount - cantidad
+        BAccount.collection.update_one({'acctcode': self.acctcode}, {'$set': {'amount': nuevo_saldo_origen}})
+        
+        # Registro de la transacción en la cuenta de origen
+        Transaction.insert(
+            transaction_id=f"TR-{self.mov_cont + 1}", 
+            from_account=self.acctcode, 
+            to_account=destinatario_acctcode, 
+            amount=cantidad, 
+            date=datetime.now(), 
+            trans_type='transferencia'
+        )
+
+        # Registro de la transacción en la cuenta de destino
+        destinatario = BAccount.find_baccount(destinatario_acctcode)
+        if destinatario:
+            nuevo_saldo_destino = destinatario.amount + cantidad
+            BAccount.collection.update_one({'acctcode': destinatario.acctcode}, {'$set': {'amount': nuevo_saldo_destino}})
+            Transaction.insert(
+                transaction_id=f"TR-{destinatario.mov_cont + 1}", 
+                from_account=None, 
+                to_account=destinatario_acctcode, 
+                amount=cantidad, 
+                date=datetime.now(), 
+                trans_type='transferencia'
+            )
+
+    def actualizar_cuenta(self, **kwargs):
+        update_data = {key: value for key, value in kwargs.items()
+                       if key in ['username', 'face_id', 'clcode', 'created_at', 'amount', 'state', 'mov_cont']}
+        return BAccount.collection.update_one({'acctcode': self.acctcode}, {'$set': update_data})
+
+    def obtener_saldo(self):
+        return self.amount
+
+    @classmethod
+    def listar_cuentas(cls):
+        cuentas = []
+        for cuenta_data in cls.collection.find():
+            cuentas.append(cls(
+                cuenta_data['acctcode'], cuenta_data['username'], cuenta_data['face_id'],
+                cuenta_data['clcode'], cuenta_data['created_at'], cuenta_data['amount'],
+                cuenta_data['state'], cuenta_data['mov_cont'], cuenta_data['acc_pass']
+            ))
+        return cuentas    
 
         
