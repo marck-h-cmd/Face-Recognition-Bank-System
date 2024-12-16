@@ -123,7 +123,7 @@ class ClienteGUIUI:
         self.img_metododepago = tk.PhotoImage(file="src/img/metodo-de-pago.png")
         self.btnPagos.configure(image=self.img_metododepago)
         self.btnPagos.place(anchor="nw", relx=0.52, rely=0.24, x=0, y=0)
-        self.btnTarjeta = ttk.Button(self.ClienteGui, name="btntarjeta")
+        self.btnTarjeta = ttk.Button(self.ClienteGui, name="btntarjeta", command=self.on_window_card)
         self.img_tarjeta = tk.PhotoImage(file="src/img/tarjeta.png")
         self.btnTarjeta.configure(compound="top", image=self.img_tarjeta)
         self.btnTarjeta.place(
@@ -181,7 +181,10 @@ class ClienteGUIUI:
 
     def callback(self, event=None):
         pass
-
+    
+    def on_window_card(self):
+        from gui.bank.bank_cardui import Bank_cardUI
+        Bank_cardUI(self.mainwindow )
 
 if __name__ == "__main__":
     app = ClienteGUIUI()
