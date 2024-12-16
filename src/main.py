@@ -1,8 +1,8 @@
 from db.database import Database
-import gui.login.loginui as baseui
+import gui.login.login_bankui as baseui
 
 
-class login(baseui.loginUI):
+class login(baseui.Login_bankUI):
     def __init__(self, master=None):
         super().__init__(master)
 

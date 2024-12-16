@@ -4,6 +4,7 @@ import datetime
 class Transaction:
     @staticmethod
     def get_collection():
+        Database.initialize()
         return Database.get_db()["transactions"]
     
     def __init__(self, transaction_id, from_account, to_account, amount, date, trans_type):

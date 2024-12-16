@@ -3,6 +3,7 @@ from db.database import Database
 
 
 class Employee:
+    Database.initialize()
     collection = Database.get_db()["employees"]
 
     def __init__(self, emplcode, name,lastname,city,address, username, password):
