@@ -3,42 +3,61 @@ from db.database import Database
 from datetime import datetime
 
 class Card:
-    @staticmethod
-    def get_collection():
-        return Database.get_db()["cards"]
+
+    Database.initialize()
+    collection = Database.get_db()["cards"]
+    user_collection = Database.get_db()["users"] 
     
-    def __init__(self, card_number,clcode, expiration_date, card_type, account_code):
+      def __init__(self, card_number, clcode, expiration_date, card_type, account_code):
         self.card_number = card_number
         self.clcode = clcode
         self.expiration_date = expiration_date
         self.card_type = card_type
-        self. account_code =  account_code
+        self.account_code = account_code
     
     @staticmethod
-    def insert(card_number, clcode, expiration_date, card_type, account_code):
-        collection = Card.get_collection()
-        try:  
-             return collection.insert_one({
-                'card_number': card_number,
-                'clcode': clcode,
-                'expiration_date': expiration_date.strftime("%Y-%m-%d"),
-                'card_type': card_type,
-                'account_code': account_code
+    def generate_card_number():
+        """Genera un número de tarjeta aleatorio de 16 dígitos."""
+        return ''.join([str(random.randint(0, 9)) for _ in range(16)])
+
+    @staticmethod
+    def generate_expiration_date():
+        """Genera una fecha de expiración a 3 años desde la fecha actual."""
+        return datetime.now() + timedelta(days=3 * 365)
+
+    @staticmethod
+    def insert(clcode, card_type):
+        user_data = Card.user_collection.find_one({"username": clcode})
+        if not user_data:
+            return None, "Usuario no encontrado."
+
+        card_number = Card.generate_card_number()
+        expiration_date = Card.generate_expiration_date()
+
+        try:
+            Card.collection.insert_one({
+                "card_number": card_number,
+                "clcode": clcode,
+                "expiration_date": expiration_date,
+                "card_type": card_type,
+                "account_code": user_data.get("email", "")  
             })
+            return card_number, "Tarjeta registrada exitosamente."
         except DuplicateKeyError:
-            print("Error: Duplicate entry.")
-            return None
+            return None, "La tarjeta ya existe."
 
     @classmethod
     def find_by_card_number(cls, card_number):
-        collection = cls.get_collection()
-        card_data = collection.find_one({'card_number': card_number})
-        return cls(
-            card_data['card_number'],  card_data['clcode'], 
-            datetime.strptime(card_data['expiration_date'], "%Y-%m-%d"),
-            card_data['card_type'], card_data['account_code']
-        ) if card_data else None
-
+        card_data = cls.collection.find_one({"card_number": card_number})
+        if card_data:
+            return cls(
+                card_data["card_number"],
+                card_data["clcode"],
+                card_data["expiration_date"],
+                card_data["card_type"],
+                card_data["account_code"]
+            )
+        return None
     @classmethod
     def list_all(cls, user):
         collection = cls.get_collection()

@@ -212,3 +212,16 @@ class Bank_cardUI:
 if __name__ == "__main__":
     app = Bank_cardUI()
     app.run()
+def solicitar_tarjeta():
+    clcode = txt_code.get()  
+    card_type = cbx_category.get() 
+
+    if not clcode or not card_type:
+        label_message.configure(text="Por favor, complete todos los campos.")
+        return
+
+    card_number, message = Card.insert(clcode, card_type)
+    if card_number:
+        label_message.configure(text=f"Tarjeta generada: {card_number}")
+    else:
+        label_message.configure(text=message)
