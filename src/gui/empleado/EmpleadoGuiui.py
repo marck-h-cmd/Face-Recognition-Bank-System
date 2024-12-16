@@ -179,7 +179,7 @@ class empleadoGuiUI:
             takefocus=False,
             text=_('Usuario'))
         self.lblUsuarios.place(anchor="nw", relx=0.89, rely=0.27, x=0, y=0)
-        self.btnTrans = ttk.Button(self.EmpleadoGui, name="btntrans")
+        self.btnTrans = ttk.Button(self.EmpleadoGui, name="btntrans",command=self.on_window_transaction)
         self.img_transferenciadedinero = tk.PhotoImage(
             file="src/img/transferencia-de-dinero.png")
         self.btnTrans.configure(image=self.img_transferenciadedinero)
@@ -227,6 +227,10 @@ class empleadoGuiUI:
             self.main_h = self.mainwindow.winfo_reqheight()
             self.center_map = self.mainwindow.bind("<Map>", self.center)
         self.mainwindow.mainloop()
+
+    def on_window_transaction(self):
+        from gui.Transaction.TransferenciaGuiui import TransferenciaGuiui 
+        TransferenciaGuiui (self.mainwindow )
 
 
 if __name__ == "__main__":

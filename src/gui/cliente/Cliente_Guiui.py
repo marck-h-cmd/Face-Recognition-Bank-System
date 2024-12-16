@@ -113,7 +113,7 @@ class ClienteGUIUI:
         self.btnMonto.configure(image=self.img_dinero)
         self.btnMonto.place(anchor="nw", relx=0.06, rely=0.26, x=0, y=0)
         self.btnTransferencias = ttk.Button(
-            self.ClienteGui, name="btntransferencias")
+            self.ClienteGui, name="btntransferencias",command=self.on_window_transaction)
         self.img_transferenciadedinero = tk.PhotoImage(
             file="src/img/transferencia-de-dinero.png")
         self.btnTransferencias.configure(image=self.img_transferenciadedinero)
@@ -185,6 +185,9 @@ class ClienteGUIUI:
     def on_window_card(self):
         from gui.bank.bank_cardui import Bank_cardUI
         Bank_cardUI(self.mainwindow )
+    def on_window_transaction(self):
+        from gui.Transaction.TransferenciaGuiui import TransferenciaGuiui 
+        TransferenciaGuiui (self.mainwindow )
 
 if __name__ == "__main__":
     app = ClienteGUIUI()
