@@ -8,7 +8,7 @@ class Card:
     collection = Database.get_db()["cards"]
     user_collection = Database.get_db()["users"] 
     
-      def __init__(self, card_number, clcode, expiration_date, card_type, account_code):
+    def __init__(self, card_number, clcode, expiration_date, card_type, account_code):
         self.card_number = card_number
         self.clcode = clcode
         self.expiration_date = expiration_date
