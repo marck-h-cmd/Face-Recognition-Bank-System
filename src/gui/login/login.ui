@@ -33,6 +33,8 @@
     <child>
       <object class="tk.Canvas" id="bgPrincipal" named="True">
         <property name="background">#ffffff</property>
+        <property name="state">normal</property>
+        <property name="takefocus">true</property>
         <layout manager="place">
           <property name="anchor">nw</property>
           <property name="height">800</property>

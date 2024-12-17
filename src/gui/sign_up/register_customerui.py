@@ -1,11 +1,10 @@
 import tkinter as tk
-from tkinter import messagebox 
+from tkinter import messagebox
 import tkinter.ttk as ttk
 from pymongo.errors import DuplicateKeyError
-from models import Customer
+from models.Customer import Customer
 from functions.utils import *
-from gui.sign_up.registerFaceui import RegisterFaceUI
-
+from gui.sign_up.register_test import RegisterFaceUI
 
 
 class register_customerUI:
@@ -34,20 +33,43 @@ class register_customerUI:
         separator1 = ttk.Separator(tk1)
         separator1.configure(orient="horizontal")
         separator1.place(anchor="nw", width=800, x=200, y=290)
+
+     
+        self.lbl_UserName = ttk.Label(tk1, text="Usuario:")
+        self.lbl_UserName.place(anchor="nw", x=350, y=320)
         self.entryUserName = ttk.Entry(tk1, name="entryusername")
         self.entryUserName.place(anchor="nw", width=300, x=450, y=320)
+
+        self.lbl_Name = ttk.Label(tk1, text="Nombre:")
+        self.lbl_Name.place(anchor="nw", x=350, y=370)
         self.entryName = ttk.Entry(tk1, name="entryname")
         self.entryName.place(anchor="nw", width=300, x=450, y=370)
+
+        self.lbl_LastName = ttk.Label(tk1, text="Apellido:")
+        self.lbl_LastName.place(anchor="nw", x=350, y=420)
         self.entryLastName = ttk.Entry(tk1, name="entrylastname")
         self.entryLastName.place(anchor="nw", width=300, x=450, y=420)
+
+        self.lbl_City = ttk.Label(tk1, text="Ciudad:")
+        self.lbl_City.place(anchor="nw", x=350, y=470)
         self.entryCity = ttk.Entry(tk1, name="entrycity")
         self.entryCity.place(anchor="nw", width=300, x=450, y=470)
+
+        self.lbl_DNI = ttk.Label(tk1, text="DNI:")
+        self.lbl_DNI.place(anchor="nw", x=350, y=520)
         self.entryDNI = ttk.Entry(tk1, name="entrydni")
         self.entryDNI.place(anchor="nw", width=300, x=450, y=520)
+
+        self.lbl_Phone = ttk.Label(tk1, text="Teléfono:")
+        self.lbl_Phone.place(anchor="nw", x=350, y=570)
         self.entryPhone = ttk.Entry(tk1, name="entryphone")
         self.entryPhone.place(anchor="nw", width=300, x=450, y=570)
+
+        self.lbl_Email = ttk.Label(tk1, text="Correo Electrónico:")
+        self.lbl_Email.place(anchor="nw", x=310, y=620)
         self.entryEmail = ttk.Entry(tk1, name="entryemail")
         self.entryEmail.place(anchor="nw", width=300, x=450, y=620)
+
         separator2 = ttk.Separator(tk1)
         separator2.configure(orient="horizontal")
         separator2.place(anchor="nw", width=800, x=200, y=740)
@@ -55,14 +77,13 @@ class register_customerUI:
         self.btnRegister.configure(text='Registrarse')
         self.btnRegister.place(anchor="nw", width=300, x=450, y=670)
 
-        # Bind event
+    
         self.btnRegister.config(command=self.register_customer)
 
-        # Main widget
+       
         self.mainwindow = tk1
 
     def register_customer(self):
-        # Get values from entry fields
         clcode = generate_customer_code()
         name = self.entryName.get()
         lastname = self.entryLastName.get()
@@ -71,17 +92,13 @@ class register_customerUI:
         phone = self.entryPhone.get()
         email = self.entryEmail.get()
 
-        # Validate inputs (add more validations as needed)
         if not clcode or not name or not lastname or not dni or not email:
             tk.messagebox.showerror("Error", "Todos los campos obligatorios deben llenarse.")
             return
 
-
         try:
-            # Insert customer into the database
-            customer=Customer.insert(clcode, name, lastname, city, dni, phone, email)
+            customer = Customer.insert(clcode, name, lastname, city, dni, phone, email)
             tk.messagebox.showinfo("Éxito", "Cliente registrado exitosamente.")
-            
             RegisterFaceUI(customer=customer)
         except DuplicateKeyError:
             tk.messagebox.showerror("Error", "El código de cliente ya existe.")

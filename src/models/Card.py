@@ -1,7 +1,8 @@
 from pymongo.errors import DuplicateKeyError
 from db.database import Database
 from datetime import datetime
-
+import random
+import timedelta
 class Card:
 
     Database.initialize()
