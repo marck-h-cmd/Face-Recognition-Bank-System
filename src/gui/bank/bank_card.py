@@ -9,7 +9,7 @@ class Bank_card(baseui.Bank_cardUI):
         super().__init__(master)
         self.generate_button.configure(command=self.generate_card)
 
-    def generate_card(self):
+def generate_card(self):
         """Maneja la generación de tarjetas desde la interfaz."""
         clcode = self.clcode_entry.get()  
         card_type = self.card_type_combobox.get()  
