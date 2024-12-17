@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
+from tkinter import ttk, messagebox
+from models import BAccount
 
 
 # Begin i18n - Setup translator in derived class file
@@ -143,7 +145,59 @@ class TransferenciaGuiUI:
             self.main_h = self.mainwindow.winfo_reqheight()
             self.center_map = self.mainwindow.bind("<Map>", self.center)
         self.mainwindow.mainloop()
+        
+    def transferir_dinero(self):
+        try:
+            cuenta_origen = self.txtCuentaOrigen.get()
+            cuenta_destino = self.txtCuentaDestino.get()
+            monto = float(self.txtMontoT.get())
 
+            # Validar entrada
+            if not cuenta_origen or not cuenta_destino or monto <= 0:
+                raise ValueError("Todos los campos son obligatorios y el monto debe ser mayor a 0")
+
+            # Buscar la cuenta origen
+            cuenta = BAccount.find_baccount(cuenta_origen)
+            if not cuenta:
+                raise ValueError("Cuenta de origen no encontrada")
+            
+            cuentax = BAccount.find_baccount(cuenta_destino)
+            if not cuentax:
+                raise ValueError("Cuenta de destino no encontrada")
+            
+            if cuenta.obtener_saldo()<monto:
+                raise ValueError("Saldo insuficiente")
+            else:
+                # Realizar la transferencia
+                cuenta.transferir_dinero(cuenta_destino, monto)
+                messagebox.showinfo("Éxito", f"Transferencia de {monto} realizada con éxito.")             
+
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    def retirar_dinero(self):
+        try:
+            cuenta_retiro = self.txtCuentaRetiro.get()
+            monto = float(self.txtMontoR.get())
+
+            # Validar entrada
+            if not cuenta_retiro or monto <= 0:
+                raise ValueError("Todos los campos son obligatorios y el monto debe ser mayor a 0")
+
+            # Buscar la cuenta
+            cuenta = BAccount.find_baccount(cuenta_retiro)
+            if not cuenta:
+                raise ValueError("Cuenta no encontrada")
+
+            if cuenta.obtener_saldo()<monto:
+                raise ValueError("Saldo insuficiente")
+            else:
+                # Realizar el retiro
+                cuenta.retirar_dinero(monto)
+                messagebox.showinfo("Éxito", f"Retiro de {monto} realizado con éxito.")
+
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
 
 if __name__ == "__main__":
     app = TransferenciaGuiUI()
