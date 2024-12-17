@@ -150,7 +150,7 @@ class Bank_cardUI:
             text='SOLICITAR TARJETA')
         button1.place(anchor="nw", relx=0.25, rely=0.32, x=0, y=0)
         button3 = ttk.Button(toplevel1)
-        button3.configure(cursor="arrow", default="normal", text='Consultar')
+        button3.configure(cursor="arrow", default="normal", text='Consultar',command=self.solicitar_tarjeta)
         button3.place(anchor="nw", relx=0.47, rely=0.17, x=0, y=0)
         self.txt = ttk.Label(toplevel1, name="txt")
         self.txt.configure(
@@ -212,8 +212,8 @@ class Bank_cardUI:
 if __name__ == "__main__":
     app = Bank_cardUI()
     app.run()
-def solicitar_tarjeta():
-    clcode = txt_code.get()  
+def solicitar_tarjeta(self):
+    clcode = self.txt_code.get()  
     card_type = cbx_category.get() 
 
     if not clcode or not card_type:
