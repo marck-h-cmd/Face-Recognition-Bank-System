@@ -17,7 +17,10 @@ class ClienteGUI(baseui.ClienteGUIUI):
         pass
     def on_window_card(self):
         pass
-
+    def on_window_statement(self):
+        pass
+    def on_window_service(self):
+        pass
 
 if __name__ == "__main__":
     app = ClienteGUI()

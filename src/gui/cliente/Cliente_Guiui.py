@@ -119,7 +119,7 @@ class ClienteGUIUI:
         self.btnTransferencias.configure(image=self.img_transferenciadedinero)
         self.btnTransferencias.place(
             anchor="nw", relx=0.34, rely=0.24, x=0, y=0)
-        self.btnPagos = ttk.Button(self.ClienteGui, name="btnpagos")
+        self.btnPagos = ttk.Button(self.ClienteGui, name="btnpagos", command=self.on_window_service)
         self.img_metododepago = tk.PhotoImage(file="src/img/metodo-de-pago.png")
         self.btnPagos.configure(image=self.img_metododepago)
         self.btnPagos.place(anchor="nw", relx=0.52, rely=0.24, x=0, y=0)
@@ -134,7 +134,7 @@ class ClienteGUIUI:
             width=70,
             x=0,
             y=0)
-        self.btnEstado = ttk.Button(self.ClienteGui, name="btnestado")
+        self.btnEstado = ttk.Button(self.ClienteGui, name="btnestado",command=self.on_window_statement)
         self.img_impuesto = tk.PhotoImage(file="src/img/impuesto.png")
         self.btnEstado.configure(image=self.img_impuesto)
         self.btnEstado.place(anchor="nw", relx=0.89, rely=0.24, x=0, y=0)
@@ -210,9 +210,17 @@ class ClienteGUIUI:
     def on_window_card(self):
         from gui.bank.bank_cardui import Bank_cardUI
         Bank_cardUI(self.mainwindow )
+
     def on_window_transaction(self):
         from gui.Transaction.TransferenciaGuiui import TransferenciaGuiui 
         TransferenciaGuiui (self.mainwindow )
+        
+    def on_window_statement(self):
+        from gui.statement.estadoDeCuentaui import estadoDeCuentaui
+        estadoDeCuentaui(self.mainwindow )
+    def on_window_service(self):
+        from gui.service.Serviceui import Serviceui 
+        Serviceui(self.mainwindow)
 
 if __name__ == "__main__":
     app = ClienteGUIUI()
