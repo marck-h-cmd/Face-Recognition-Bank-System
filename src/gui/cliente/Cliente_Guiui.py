@@ -12,7 +12,7 @@ i18n_translator = i18n_noop
 
 
 class ClienteGUIUI:
-    def __init__(self, master=None):
+    def __init__(self,baccount, master=None,):
         _ = i18n_translator  # i18n string marker.
         # build ui
         self.ClienteGui = tk.Tk(master)
