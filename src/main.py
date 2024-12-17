@@ -9,7 +9,7 @@ class login(baseui.Login_bankUI):
 
 if __name__ == "__main__":  
     try:  
-        Database.initialize()   
+        Database.initialize()
         app = login()      
         app.run()
         

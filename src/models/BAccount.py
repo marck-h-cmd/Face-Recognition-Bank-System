@@ -64,7 +64,7 @@ class BAccount:
         BAccount.card_collection.delete_many({'linked_acctcode': acctcode})  
         return BAccount.collection.delete_one({'acctcode': acctcode})
     
-    
+    @classmethod
     def retirar_dinero(self, cantidad):
         #Debe ser implementada en la gui estas verificaciones
         #if cantidad <= 0:
@@ -83,7 +83,7 @@ class BAccount:
             trans_type='retiro'
         )
         return nuevo_saldo
-
+    @classmethod
     def transferir_dinero(self, destinatario_acctcode, cantidad):
         #Debe ser implementada en la gui estas verificaciones
         #if cantidad <= 0:
@@ -116,7 +116,7 @@ class BAccount:
                 date=datetime.now(), 
                 trans_type='transferencia'
             )
-
+    @classmethod
     def actualizar_cuenta(self, **kwargs):
         update_data = {key: value for key, value in kwargs.items()
                        if key in ['username', 'face_id', 'clcode', 'created_at', 'amount', 'state', 'mov_cont']}

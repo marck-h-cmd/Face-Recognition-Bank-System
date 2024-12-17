@@ -6,11 +6,13 @@ from datetime import datetime
 from models.BAccount import BAccount
 from functions.face_detection.face_detection_logic import detect_faces, register_face
 from functions.utils import generate_baccount_code
+from PIL import Image, ImageTk
+
 
 
 class RegisterFaceUI:
-    def _init_(self, master=None):
-        self.master =  tk.Tk(master)
+    def __init__(self, customer, master=None):
+        self.master = master or tk.Tk()
         self.master.title("Eureka Bank - Registro de Rostro")
         self.master.configure(background="#ffffff", height=800, width=1200)
 
@@ -48,18 +50,21 @@ class RegisterFaceUI:
         self.btnRegister = ttk.Button(self.master, text='Crear Cuenta', command=self.register)
         self.btnRegister.place(anchor="nw", width=300, x=250, y=580)
 
+        self.image_refs = []
+
         # Variables
-        #self.customer = customer
+        self.customer = customer
         self.video_capture = cv2.VideoCapture(0)
         self.video_running = True
         self.face_encoding = None
-        self.image_refs = []  # Lista para referencias de imágenes
 
         if not self.video_capture.isOpened():
             messagebox.showerror("Error", "No se pudo abrir la cámara.")
             self.video_running = False
         else:
             self.update_video()
+            
+            
 
     def update_video(self):
         """Actualiza el video en el Canvas."""
@@ -69,17 +74,31 @@ class RegisterFaceUI:
                 rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 self.display_frame(rgb_frame)
             self.master.after(10, self.update_video)
+            print(f"Frame shape: {frame.shape}, dtype: {frame.dtype}")
 
     def display_frame(self, frame):
         """Muestra el cuadro capturado en el Canvas."""
+      
+      
         try:
-            img = tk.PhotoImage(data=cv2.imencode(".png", cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))[1].tobytes())
-            self.image_refs.append(img)  # Guardar referencia
-            if len(self.image_refs) > 10:  # Limitar tamaño de la lista
+            # Convierte el frame a PhotoImage
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            img_pil = Image.fromarray(frame_rgb)
+
+            # Convierte la imagen Pillow a PhotoImage para Tkinter
+            img = ImageTk.PhotoImage(image=img_pil)
+            
+            # Guarda la referencia de la imagen
+            self.image_refs.append(img)
+
+            # Borra las imágenes anteriores si hay demasiadas
+            if len(self.image_refs) > 50:  # Evita que la lista crezca indefinidamente
                 self.image_refs.pop(0)
+
+            # Muestra la imagen en el Canvas
             self.video_frame.create_image(0, 0, anchor="nw", image=img)
         except Exception as e:
-            print(f"Error mostrando el cuadro: {e}")
+            print(f"Error mostrando el cuadro: {e}")
 
     def capture_face(self):
         """Captura el rostro del usuario."""
@@ -111,7 +130,7 @@ class RegisterFaceUI:
             return
 
         acctcode = generate_baccount_code()
-        clcode =  "CL-DEFAULT"
+        clcode = self.customer.clcode if self.customer else "CL-DEFAULT"
         created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         amount = 0.0
         state = "ACTIVE"
@@ -138,6 +157,12 @@ class RegisterFaceUI:
         self.video_running = False
         self.video_capture.release()
         self.master.destroy()
+        self._del_()
+        
+    def _del_(self):
+        # Libera la cámara cuando la aplicación se cierra
+        if self.video_capture.isOpened():
+            self.video_capture.release()
 
     def run(self):
         """Inicia la interfaz de usuario."""
@@ -146,5 +171,5 @@ class RegisterFaceUI:
 
 
 if __name__ == "__main__":
-    app = RegisterFaceUI()
+    app = RegisterFaceUI(customer=None)
     app.run()

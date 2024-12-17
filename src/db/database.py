@@ -5,8 +5,6 @@ from pymongo import MongoClient
 class Database:
     _client = None
     _db = None
-    
-   
     @classmethod
     def initialize(cls):
         if cls._client is None:

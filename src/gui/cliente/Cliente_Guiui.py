@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
-
+from gui.Transaction.TransferenciaGuiui import TransferenciaGuiUI
 
 # Begin i18n - Setup translator in derived class file
 def i18n_noop(value): return value
@@ -212,7 +212,7 @@ class ClienteGUIUI:
         Bank_cardUI(self.mainwindow )
     def on_window_transaction(self):
         from gui.Transaction.TransferenciaGuiui import TransferenciaGuiui 
-        TransferenciaGuiui (self.mainwindow )
+        TransferenciaGuiUI(self.mainwindow )
 
 if __name__ == "__main__":
     app = ClienteGUIUI()

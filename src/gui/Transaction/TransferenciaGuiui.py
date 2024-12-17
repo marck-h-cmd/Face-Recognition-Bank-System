@@ -2,7 +2,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import ttk, messagebox
-from models import BAccount
+from models.BAccount import BAccount
 
 
 # Begin i18n - Setup translator in derived class file

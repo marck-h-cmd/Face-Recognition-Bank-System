@@ -4,7 +4,7 @@ import tkinter.ttk as ttk
 from pymongo.errors import DuplicateKeyError
 from models.Customer import Customer
 from functions.utils import *
-from gui.sign_up.test import RegisterFaceUI
+from gui.sign_up.test3 import FaceRecognitionRegistrationApp
 
 
 class register_customerUI:
@@ -99,7 +99,8 @@ class register_customerUI:
         try:
             customer = Customer.insert(clcode, name, lastname, city, dni, phone, email)
             tk.messagebox.showinfo("Éxito", "Cliente registrado exitosamente.")
-            RegisterFaceUI()
+            #RegisterFaceUI(customer=customer)
+            FaceRecognitionRegistrationApp()
             self.mainwindow.destroy()
         except DuplicateKeyError:
             tk.messagebox.showerror("Error", "El código de cliente ya existe.")

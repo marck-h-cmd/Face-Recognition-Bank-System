@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
-
+from models.Card import Card
 
 class Bank_cardUI:
     def __init__(self, master=None):
@@ -214,14 +214,14 @@ if __name__ == "__main__":
     app.run()
 def solicitar_tarjeta(self):
     clcode = self.txt_code.get()  
-    card_type = cbx_category.get() 
+    card_type = self.cbx_category.get() 
 
     if not clcode or not card_type:
-        label_message.configure(text="Por favor, complete todos los campos.")
+        self.label_message.configure(text="Por favor, complete todos los campos.")
         return
 
     card_number, message = Card.insert(clcode, card_type)
     if card_number:
-        label_message.configure(text=f"Tarjeta generada: {card_number}")
+        self.label_message.configure(text=f"Tarjeta generada: {card_number}")
     else:
-        label_message.configure(text=message)
+        self.label_message.configure(text=message)
